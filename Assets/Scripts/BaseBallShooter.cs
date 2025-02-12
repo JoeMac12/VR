@@ -7,7 +7,6 @@ using UnityEngine;
 public class BaseballShooter : MonoBehaviour
 {
 	public GameObject baseballPrefab;
-	public float shootTime = 5f;
 	public float ballLifetime = 15f;
 	public float shootForce = 500f;
 
@@ -16,24 +15,13 @@ public class BaseballShooter : MonoBehaviour
 
 	private void Start()
 	{
-		StartCoroutine(Shoot());
-
 		if (audioSource == null)
 		{
 			audioSource = GetComponent<AudioSource>();
 		}
 	}
 
-	private IEnumerator Shoot()
-	{
-		while (true)
-		{
-			ShootBall();
-			yield return new WaitForSeconds(shootTime);
-		}
-	}
-
-	private void ShootBall()
+	public void ShootBall()
 	{
 		if (shootSound != null)
 		{
