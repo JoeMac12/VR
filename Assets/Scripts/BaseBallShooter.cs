@@ -11,9 +11,17 @@ public class BaseballShooter : MonoBehaviour
 	public float ballLifetime = 15f;
 	public float shootForce = 500f;
 
+	public AudioClip shootSound;
+	public AudioSource audioSource;
+
 	private void Start()
 	{
 		StartCoroutine(Shoot());
+
+		if (audioSource == null)
+		{
+			audioSource = GetComponent<AudioSource>();
+		}
 	}
 
 	private IEnumerator Shoot()
@@ -27,6 +35,18 @@ public class BaseballShooter : MonoBehaviour
 
 	private void ShootBall()
 	{
+		if (shootSound != null)
+		{
+			if (audioSource != null)
+			{
+				audioSource.PlayOneShot(shootSound);
+			}
+			else
+			{
+				AudioSource.PlayClipAtPoint(shootSound, transform.position);
+			}
+		}
+
 		GameObject baseball = Instantiate(baseballPrefab, transform.position, transform.rotation);
 
 		Rigidbody rb = baseball.GetComponent<Rigidbody>();
